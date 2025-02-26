@@ -21,25 +21,33 @@ spec:
     tasks:
       # 构建前检查
       # 构建并部署
-      - name: build-and-deploy
+      - name: image-build
         context:
           data:
-            # 打开任务执行，默认是关闭的
+            # 任务显示名字，用于在控制台中展示
+            displayName: 镜像构建
+            # 打开任务执行，默认关闭
             enable: true
-            # 同样可以在此处声明钉钉告警配置，修改告警模板
-            # dingdingNotification:
-            # 同样可以在此处声明或修改RunnerConfig
-            # runnerConfig:
-            # 执行步骤。下述步骤将会采用开源项目serverless-cd提供的engine进行执行
-            steps:
-              # 每个Task都是独立运行的Serverless实例，需要再次初始化s工具
-              - plugin: "@serverless-cd/s-setup"
-              # 同理，需要重新checkout
-              - plugin: "@serverless-cd/checkout"
-              # 执行s-deploy
-              - plugin: "@serverless-cd/s-deploy"
-        taskTemplate: serverless-runner-task
-        # 执行顺序，当前任务执行依赖runAfters任务都执行成功
-        runAfters:
-          # 在approval后执行
-          []
+            # 指定构建信息
+            build:
+              # 指定dockerfile，使用代码仓库中的相对路径。不指定时默认为./Dockerfile
+              dockerfile: Dockerfile
+              # 指定镜像名，必须是ACR镜像
+              image: registry.cn-hangzhou.aliyuncs.com/fc-demo2/fengchong-test:debug
+              # 指定构建上下文目录。不指定时默认使用Dockerfile所在目录
+              # context: ./context
+              # 指定ACR企业版实例
+              # instanceID: cri-xxxx
+              # 使用base镜像的缓存路径，需要使用流水线专有环境并且使用NAS
+              # cacheDir: "/mnt/image-cache"
+            # 将base镜像预热到缓存，需要使用流水线专有环境并且使用NAS
+            # warm:
+            #   # 需要预热的base镜像，可以指定多个
+            #   images:
+            #   - registry-vpc.cn-hangzhou.aliyuncs.com/pipeline-demo/base-image-1:debug
+            #   - registry-vpc.cn-hangzhou.aliyuncs.com/pipeline-demo/base-image-2:debug
+            #   # base镜像要缓存的路径
+            #   cacheDir: "/mnt/image-cache"
+        # 任务模板指定为内置的模板build-image-task
+        taskTemplate: build-image-task
+        runAfters: []

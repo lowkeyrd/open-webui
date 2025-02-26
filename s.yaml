@@ -9,7 +9,7 @@ services:
       service:
         name: serverless-devs-application
       function:
-        name: open-webui-nx0b
+        name: open-webui-nx0
         description: Initialize
         runtime: custom.debian10
         environmentVariables:

@@ -26,21 +26,21 @@ spec:
             atUserIds: []
           text: {}
           msgtype: text
-      runnerConfig:
-        regionId: ap-southeast-1
-        vpcConfig:
-          vpcId: vpc-t4nj8bkzrlmal1b58ik8o
-          vSwitchIds:
-            - vsw-t4nl7p1z8ypo6rhsaqweh
-          securityGroupId: sg-t4n55l81zlegj6whlahh
-        serviceRole: acs:ram::1431999136518149:role/aliyunfcserverlessdevsrole
-        internetAccess: true
-        timeout: 600
-        memory: 16384
-        cpu: 8
-        logConfig:
-          logstore: function-log
-          project: fc-app-ap-southeast-1-d70a9a8a-c817-5ed1-a293-4be0908f0a5f
+      # runnerConfig:
+      #   regionId: ap-southeast-1
+      #   vpcConfig:
+      #     vpcId: vpc-t4nj8bkzrlmal1b58ik8o
+      #     vSwitchIds:
+      #       - vsw-t4nl7p1z8ypo6rhsaqweh
+      #     securityGroupId: sg-t4n55l81zlegj6whlahh
+      #   serviceRole: acs:ram::1431999136518149:role/aliyunfcserverlessdevsrole
+      #   internetAccess: true
+      #   timeout: 600
+      #   memory: 16384
+      #   cpu: 8
+      #   logConfig:
+      #     logstore: function-log
+      #     project: fc-app-ap-southeast-1-d70a9a8a-c817-5ed1-a293-4be0908f0a5f
   templateSpec:
     # 要执行的任务，默认所有任务会一同尝试执行
     # 执行会满足runAfters引入的先后约束，任务必须在runAfters声明的任务执行完毕后才可以被执行

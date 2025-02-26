@@ -11,9 +11,34 @@ labels:
 spec:
   context:
     data:
-      appName: <% .appName %>
-      envName: <% .envName %>
+      appName: open-webui
+      envName: default
       deployFile: s.yaml
+      dingdingNotification:
+        enable: false
+        skipOnSuccess: false
+        message:
+          at:
+            isAtAll: false
+            atMobiles: []
+            atUserIds: []
+          text: {}
+          msgtype: text
+      runnerConfig:
+        regionId: ap-southeast-1
+        vpcConfig:
+          vpcId: vpc-t4nj8bkzrlmal1b58ik8o
+          vSwitchIds:
+            - vsw-t4nl7p1z8ypo6rhsaqweh
+          securityGroupId: sg-t4n55l81zlegj6whlahh
+        serviceRole: acs:ram::1431999136518149:role/aliyunfcserverlessdevsrole
+        internetAccess: true
+        timeout: 600
+        memory: 16384
+        cpu: 8
+        logConfig:
+          logstore: function-log
+          project: fc-app-ap-southeast-1-d70a9a8a-c817-5ed1-a293-4be0908f0a5f
   templateSpec:
     # 要执行的任务，默认所有任务会一同尝试执行
     # 执行会满足runAfters引入的先后约束，任务必须在runAfters声明的任务执行完毕后才可以被执行
@@ -40,14 +65,14 @@ spec:
               # instanceID: cri-xxxx
               # 使用base镜像的缓存路径，需要使用流水线专有环境并且使用NAS
               # cacheDir: "/mnt/image-cache"
-            # 将base镜像预热到缓存，需要使用流水线专有环境并且使用NAS
-            # warm:
-            #   # 需要预热的base镜像，可以指定多个
-            #   images:
-            #   - registry-vpc.cn-hangzhou.aliyuncs.com/pipeline-demo/base-image-1:debug
-            #   - registry-vpc.cn-hangzhou.aliyuncs.com/pipeline-demo/base-image-2:debug
-            #   # base镜像要缓存的路径
-            #   cacheDir: "/mnt/image-cache"
-        # 任务模板指定为内置的模板build-image-task
+              # 将base镜像预热到缓存，需要使用流水线专有环境并且使用NAS
+              # warm:
+              #   # 需要预热的base镜像，可以指定多个
+              #   images:
+              #   - registry-vpc.cn-hangzhou.aliyuncs.com/pipeline-demo/base-image-1:debug
+              #   - registry-vpc.cn-hangzhou.aliyuncs.com/pipeline-demo/base-image-2:debug
+              #   # base镜像要缓存的路径
+              #   cacheDir: "/mnt/image-cache"
+              # 任务模板指定为内置的模板build-image-task
         taskTemplate: build-image-task
         runAfters: []

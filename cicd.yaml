@@ -14,6 +14,8 @@ spec:
       appName: open-webui
       envName: default
       deployFile: s.yaml
+      envVars: 
+        DEBUG: true
       dingdingNotification:
         enable: false
         skipOnSuccess: false
